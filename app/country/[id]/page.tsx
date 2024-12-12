@@ -10,11 +10,27 @@ type Params = {
   id: string;
 };
 
+type DetailedCountry = {
+  cca3: string;
+  flags: {
+    svg: string;
+  };
+  name: {
+    common: string;
+  };
+  capital: string[];
+  region: string;
+  population: number;
+  languages: Record<string, string>;
+  currencies: Record<string, { name: string; symbol: string }>;
+  tld: string[];
+  borders: string[];
+};
+
 export default function Country() {
-  const name = "Brazil";
   const params = useParams<Params>();
   const [id, setId] = useState<string | null>(null);
-  const [country, setCountry] = useState<Country>();
+  const [country, setCountry] = useState<DetailedCountry>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,7 +61,27 @@ export default function Country() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
-  console.log(country);
+  const {
+    flags,
+    name,
+    capital,
+    region,
+    population,
+    languages,
+    currencies,
+    tld,
+    borders,
+  } = country ?? {};
+
+  const { svg: flag } = flags ?? {};
+  const { common: countryName } = name ?? {};
+  const [capitalName] = capital ?? [];
+  const languagesNames = Object.values(languages ?? {}).join(", ");
+  const currenciesNames = Object.values(currencies ?? {})
+    .map(({ name, symbol }) => `${name} (${symbol})`)
+    .join(", ");
+  const [topLevelDomain] = tld ?? [];
+  const bordersIds = borders ?? [];
 
   return (
     <>
@@ -57,45 +93,55 @@ export default function Country() {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-4">
-        <div className="w-full md:max-w-[400px]">
+        <div className="flex items-center md:max-w-[400px]">
           <Image
-            src={"/flag-placeholder.svg"}
-            alt={`Flag of ${name}`}
-            className="w-full h-full"
+            src={flag || "/flag-placeholder.svg"}
+            alt={`Flag of ${countryName}`}
+            className="max-h-80 object-cover rounded-lg"
             width={500}
             height={300}
+            priority
           />
         </div>
         <div className="flex flex-col justify-center p-6 text-sm text-gray-600">
-          <h2 className="text-xl font-semibold mb-4">Brazil ({id})</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            {countryName} ({id})
+          </h2>
           <div className="space-y-2">
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Capital:</span>
-              <span>Brasília</span>
+            <div>
+              <span className="font-semibold">Capital:</span> {capitalName}
             </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Region:</span>
-              <span>South America</span>
+            <div>
+              <span className="font-semibold">Region:</span> {region}
             </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Population:</span>
-              <span>212559409</span>
+            <div>
+              <span className="font-semibold">Population:</span> {population}
             </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Languages:</span>
-              <span>Portuguese</span>
+            <div>
+              <span className="font-semibold">Languages:</span> {languagesNames}
             </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Currencies:</span>
-              <span>BRL</span>
+            <div>
+              <span className="font-semibold">Currencies:</span>{" "}
+              {currenciesNames}
             </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Top Level Domain:</span>
-              <span>.br</span>
+            <div>
+              <span className="font-semibold">Top Level Domain:</span>{" "}
+              {topLevelDomain}
             </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Borders:</span>
-              <span>ARG, BOL, COL, GUF, GUY, PRY, PER, SUR, URY, VEN</span>
+            <div className="md:max-w-80">
+              <span className="font-semibold">Borders:</span>{" "}
+              {bordersIds.length > 0
+                ? bordersIds.map((borderId) => (
+                    <Link key={borderId} href={`/country/${borderId}`}>
+                      <button
+                        className="bg-gray-200 hover:bg-gray-300
+                      text-xs mb-[6px] mr-[6px] py-[1.5px] px-[6px] rounded"
+                      >
+                        {borderId}
+                      </button>
+                    </Link>
+                  ))
+                : "None"}
             </div>
           </div>
         </div>

@@ -32,17 +32,14 @@ const Card = ({
       <div className="p-6 text-sm text-gray-600">
         <h2 className="text-xl font-semibold mb-4">{name}</h2>
         <div className="space-y-2">
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Capital:</span>
-            <span>{capital}</span>
+          <div>
+            <span className="font-semibold">Capital:</span> {capital}
           </div>
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Region:</span>
-            <span>{region}</span>
+          <div>
+            <span className="font-semibold">Region:</span> {region}
           </div>
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Population:</span>
-            <span>{population}</span>
+          <div>
+            <span className="font-semibold">Population:</span> {population}
           </div>
         </div>
       </div>
