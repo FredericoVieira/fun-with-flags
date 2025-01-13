@@ -1,7 +1,11 @@
+import { HeartIcon } from "@heroicons/react/24/solid";
+
 const Footer = () => {
   return (
     <footer className="py-6 mt-8">
-      <p className="text-center">Made with ♥️ by Frederico Vieira</p>
+      <p className="flex justify-center items-center">
+        Made with <HeartIcon className="size-4 mx-1" /> by Frederico Vieira
+      </p>
     </footer>
   );
 };
