@@ -21,7 +21,7 @@ const Search = ({ count, search, setSearch }: SearchProps) => {
         </span>
       </div>
       <span className="text-gray-600 text-sm pl-4">
-        Showing {count} countries
+        Showing {count} {count === 1 ? "country" : "countries"}
       </span>
     </div>
   );
