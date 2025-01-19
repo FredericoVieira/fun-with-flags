@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { countriesApi } from "../../services";
 import { formatNumber } from "../../utils";
+import { Error, Loading } from "../../components";
 
 type Params = {
   id: string;
@@ -60,8 +61,8 @@ export default function Country() {
     }
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <Loading text="Visiting country..." />;
+  if (error) return <Error text={error} />;
 
   const {
     flags,
