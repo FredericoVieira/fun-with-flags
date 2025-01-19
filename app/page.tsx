@@ -64,7 +64,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex justify-between mb-8">
+      <div className="flex flex-col-reverse gap-4 md:flex-row justify-between mb-8">
         <Search
           count={filteredCountries.length}
           search={search}
