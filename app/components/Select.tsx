@@ -91,7 +91,7 @@ const Select = ({ options, selected, setSelected }: SelectProps) => {
           tabIndex={0}
           aria-activedescendant={`option-${focusedIndex}`}
           onKeyDown={handleListKeyDown}
-          className="absolute w-full bg-white mt-2 border rounded-lg shadow-md border-gray-300 overflow-hidden focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="absolute z-10 w-full bg-white mt-2 border rounded-lg shadow-md border-gray-300 overflow-hidden focus:ring-2 focus:ring-blue-500 focus:outline-none"
         >
           {options.map((option, index) => (
             <li
