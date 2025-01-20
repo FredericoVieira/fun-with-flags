@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { countriesApi } from "../../services";
-import { formatNumber } from "../../utils";
-import { Error, Loading } from "../../components";
+import { countriesApi } from "@/services";
+import { formatNumber } from "@/utils";
+import { Error, Loading } from "@/components";
 
 type Params = {
   id: string;

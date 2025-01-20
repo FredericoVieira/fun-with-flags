@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { countriesApi } from "./services";
-import { Card, Error, Grid, Loading, Search, Select } from "./components";
+import { countriesApi } from "@/services";
+import { Card, Error, Grid, Loading, Search, Select } from "@/components";
 
 type Country = {
   cca3: string;
